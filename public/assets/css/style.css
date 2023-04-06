@@ -73,3 +73,63 @@ body {
     color: #8b008b;
     font-size: 1.2em;
 }
+
+@media (min-width: 321px){
+    .teclas button {
+        width: 25px;
+        height: 25px;
+    }
+    .categorias {
+        font-size: 1.3em;
+    }
+}
+
+@media (min-width: 376px){
+    .letras {
+        width: 18px;
+    }
+    .teclas button {
+        width: 30px;
+        height: 30px;
+    }
+    #palavra-secreta {
+        font-size: 1.3em;
+    }
+    #categorias {
+        font-size: 1.5em;
+    }
+}
+
+@media (min-width: 426px){
+    .letras {
+        width: 20px;
+    }
+    .teclas button {
+        width: 36px;
+        height: 36px;
+    }
+    #palavra-secreta {
+        font-size: 1.5em;
+    }
+    #categorias {
+        font-size: 1.6em;
+    }
+}
+
+@media (min-width: 769px){
+    .letras {
+        width: 35px;
+    }
+    .teclas button {
+        width: 68px;
+        height: 68px;
+        font-size: 2em;
+    }
+    #palavra-secreta {
+        font-size: 2.5em;
+    }
+    #categorias {
+        font-size: 2em;
+    }
+}
+
