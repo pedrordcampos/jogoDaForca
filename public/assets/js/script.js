@@ -61,7 +61,7 @@ const palavras = [
         categoria: 'ANIMAIS'
     },
     palavra016 = {
-        nome: 'SAP0',
+        nome: 'SAPO',
         categoria: 'ANIMAIS'
     },
     palavra017 = {
@@ -109,6 +109,7 @@ function montarPalavraNaTela() {
 }
 
 function verificaLetraEscolhida(letra) {
+    document.getElementById('tecla-' +letra).disabled = true;
     if(tentativas > 0) {
         mudarStyleLetra('tecla-' + letra);
         comparaListas(letra);
