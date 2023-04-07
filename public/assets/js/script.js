@@ -1,3 +1,4 @@
+let tentativas = 6;
 let listaDinamica = [];
 let palavraSecretaCategoria;
 let palavraSecretaSorteada;
@@ -104,5 +105,72 @@ function montarPalavraNaTela() {
             palavraTela.innerHTML = palavraTela.innerHTML + 
             '<div class="letras">' +listaDinamica[i]+ '</di>'
         }
+    }
+}
+
+function verificaLetraEscolhida(letra) {
+    if(tentativas > 0) {
+        mudarStyleLetra('tecla-' + letra);
+        comparaListas(letra);
+        montarPalavraNaTela();
+    }
+}
+
+function mudarStyleLetra(tecla){
+    document.getElementById(tecla).style.background = '#c71585';
+    document.getElementById(tecla).style.color = '#ffffff';
+}
+
+function comparaListas(letra){
+    const pos = palavraSecretaSorteada.indexOf(letra);
+    if (pos < 0) {
+        tentativas--;
+        carregaImagemForca();
+    } else {
+        for (let i = 0; i < palavraSecretaSorteada.length; i++) {
+           if(palavraSecretaSorteada[i] == letra) {
+                listaDinamica[i] = letra;
+           }
+            
+        }
+    }
+
+    let vitoria = true;
+    for (let i = 0; i < palavraSecretaSorteada.length; i++) {
+        if (palavraSecretaSorteada[i] != listaDinamica[i]) {
+            vitoria = false;
+        }
+    }
+
+    if (vitoria == true) {
+        alert('Você venceu!');
+        tentativas = 0;
+    }
+
+}
+
+function carregaImagemForca() {
+    switch(tentativas){
+        case 5:
+            document.getElementById('imagem').style.background = "url('./public/assets/img/forca01.png')";
+            break;
+        case 4:
+            document.getElementById('imagem').style.background = "url('./public/assets/img/forca02.png')";
+            break;
+        case 3:
+            document.getElementById('imagem').style.background = "url('./public/assets/img/forca03.png')";
+            break;
+        case 2:
+            document.getElementById('imagem').style.background = "url('./public/assets/img/forca04.png')";
+            break;
+        case 1:
+            document.getElementById('imagem').style.background = "url('./public/assets/img/forca05.png')";
+            break;
+        case 0:
+            document.getElementById('imagem').style.background = "url('./public/assets/img/forca06.png')";
+            break;
+        default:
+            document.getElementById('imagem').style.background = "url('./public/assets/img/forca.png')";
+            break;
     }
 }
