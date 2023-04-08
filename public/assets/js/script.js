@@ -6,7 +6,7 @@ let palavraSecretaSorteada;
 
 pegaJson();
 function pegaJson() {
-    return fetch('http://localhost/projetos/jogoDaForca/conexao.php')
+    return fetch('conexao.php')
       .then((response) => response.json())
       .then(criarPalavraSecreta);
 }
@@ -21,7 +21,7 @@ function criarPalavraSecreta(data) {
 
 function montarPalavraNaTela() {
     const categoria = document.getElementById('categoria');
-    categoria.innerHTML = palavraSecretaCategoria;
+    categoria.innerHTML = 'Dica: ' +palavraSecretaCategoria.italics();
 
     const palavraTela = document.getElementById('palavra-secreta');
     palavraTela.innerHTML = "";

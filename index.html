@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     
+    <!-- CSS BUTTONS BOXICONS -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    
     <!-- CSS -->
     <link rel="stylesheet" href="./public/assets/css/style.css" media="screen">
 
@@ -85,7 +88,32 @@
                 </div>
             </div>
         </div>
+
+        <!-- Modal Adicionar Palavra-->
+        <div class="modal-container" id="modal-alerta">
+            <div class="modal-add-palavra">
+                <div class="modal-header-add-palavra" id="modal-titulo">
+                    <span id="fechaModal" class="close">&times;</span>
+                    <h2>Adicionar palavra</h2>
+                </div>           
+                <div class="modal-body-add-palavra" id="modal-mensagem">
+                    <input id="addPalavra" type="password" placeholder="Palavra" required>
+                    <input id="addCategoria" type="text" placeholder="Categoria" required>
+                    <button onclick="adicionarPalavra()">Adicionar</button>
+                </div>
+            </div>
+        </div>    
+
+        <div id="status">Modo automático</div>
+        <button id="abreModalAddPalavra"><i class="bx bx-message-square-add"></i></button>
+        <img src="public/assets/img/jogarNovamente.gif" id="jogarNovamente"></img>
+        <button id="recarregar" onclick="sortearManual()"><i class="bx bx-refresh"></i></button>
+        <button id="jogarAutomatico" onclick="listaAutomatica()"><i class="bx bx-pause-circle"></i></button>    
     </div>
+
+   
+   
+    
     <!-- SCRIPT BOOTSTRAP 4.0 -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
