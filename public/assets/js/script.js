@@ -1,3 +1,4 @@
+let jogarNovamente = true;
 let tentativas = 6;
 let listaDinamica = [];
 let palavraSecretaCategoria;
@@ -98,12 +99,28 @@ function montarPalavraNaTela() {
 
     for (let i = 0; i < palavraSecretaSorteada.length; i++) {
         if(listaDinamica[i] == undefined) {
-            listaDinamica[i] = "&nbsp;"
-            palavraTela.innerHTML = palavraTela.innerHTML + 
-                '<div class="letras">' +listaDinamica[i]+ '</di>'
+            
+            if (palavraSecretaSorteada[i] == ' ') {
+                listaDinamica[i] = ' ';
+                palavraTela.innerHTML = palavraTela.innerHTML + 
+                '<div class="letrasEspaco">' +listaDinamica[i]+ '</di>'
+            } else {
+                listaDinamica[i] = "&nbsp;"
+                palavraTela.innerHTML = palavraTela.innerHTML + 
+                    '<div class="letras">' +listaDinamica[i]+ '</di>'
+            }
+
         } else {
-            palavraTela.innerHTML = palavraTela.innerHTML + 
-            '<div class="letras">' +listaDinamica[i]+ '</di>'
+
+            if (palavraSecretaSorteada[i] == ' ') {
+                listaDinamica[i] = ' ';
+                palavraTela.innerHTML = palavraTela.innerHTML + 
+                '<div class="letrasEspaco">' +listaDinamica[i]+ '</di>'
+            } else {
+                palavraTela.innerHTML = palavraTela.innerHTML + 
+                '<div class="letras">' +listaDinamica[i]+ '</di>'
+            }
+
         }
     }
 }
@@ -111,15 +128,21 @@ function montarPalavraNaTela() {
 function verificaLetraEscolhida(letra) {
     document.getElementById('tecla-' +letra).disabled = true;
     if(tentativas > 0) {
-        mudarStyleLetra('tecla-' + letra);
+        mudarStyleLetra('tecla-' + letra, false);
         comparaListas(letra);
         montarPalavraNaTela();
     }
 }
 
-function mudarStyleLetra(tecla){
-    document.getElementById(tecla).style.background = '#c71585';
-    document.getElementById(tecla).style.color = '#ffffff';
+function mudarStyleLetra(tecla, condicao){
+
+    if (condicao == false) {
+        document.getElementById(tecla).style.background = '#c71585';
+        document.getElementById(tecla).style.color = '#ffffff';
+    } else {
+        document.getElementById(tecla).style.background = '#008000';
+        document.getElementById(tecla).style.color = '#ffffff';
+    }
 }
 
 function comparaListas(letra){
@@ -130,9 +153,11 @@ function comparaListas(letra){
 
         if (tentativas == 0) {
             abreModal('Oops...', 'Não foi dessa vez! </br> <em> A palavra secreta era: </em> </br>' + palavraSecretaSorteada.bold());
+            botaoReiniciar();
         }  
 
     } else {
+        mudarStyleLetra('tecla-' + letra, true);
         for (let i = 0; i < palavraSecretaSorteada.length; i++) {
            if(palavraSecretaSorteada[i] == letra) {
                 listaDinamica[i] = letra;
@@ -151,8 +176,26 @@ function comparaListas(letra){
     if (vitoria == true) {
         abreModal('PARABÉNS!!!', '  Você venceu!');
         tentativas = 0;
+        botaoReiniciar();
+        
     }
 
+}
+
+async function botaoReiniciar() {
+
+    while (jogarNovamente == true) {
+        document.getElementById('btn-reiniciar').style.backgroundColor = '#8b008b';
+        document.getElementById('btn-reiniciar').style.scale = 1.1;
+        await atraso(500);
+        document.getElementById('btn-reiniciar').style.backgroundColor = '#ffffff';
+        document.getElementById('btn-reiniciar').style.scale = 1.0;
+        await atraso(500);
+    }
+}
+
+async function atraso(tempo) {
+    return new Promise(x => setTimeout(x, tempo));
 }
 
 function carregaImagemForca() {
@@ -194,5 +237,6 @@ function abreModal(titulo, mensagem){
 
 let btnReiniciar = document.querySelector('#btn-reiniciar');
 btnReiniciar.addEventListener("click", function() {
+    jogarNovamente = false;
     location.reload();
 });
