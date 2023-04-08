@@ -4,92 +4,21 @@ let listaDinamica = [];
 let palavraSecretaCategoria;
 let palavraSecretaSorteada;
 
-const palavras = [
-    palavra001 = {
-        nome: 'IRLANDA',
-        categoria: 'LUGARES'
-    },
-    palavra002 = {
-        nome: 'EQUADOR',
-        categoria: 'LUGARES'
-    },
-    palavra003 = {
-        nome: 'GUATEMALA',
-        categoria: 'LUGARES'
-    },
-    palavra005 = {
-        nome: 'VATICANO',
-        categoria: 'LUGARES'
-    },
-    palavra006 = {
-        nome: 'SENEGAL',
-        categoria: 'LUGARES'
-    },
-    palavra007 = {
-        nome: 'BRASIL',
-        categoria: 'LUGARES'
-    },
-    palavra008 = {
-        nome: 'CHILE',
-        categoria: 'LUGARES'
-    },
-    palavra009 = {
-        nome: 'CAZAQUISTÃO',
-        categoria: 'LUGARES'
-    },
-    palavra010 = {
-        nome: 'ANDORRA',
-        categoria: 'LUGARES'
-    },
-    palavra011 = {
-        nome: 'CACHORRO',
-        categoria: 'ANIMAIS'
-    },
-    palavra012 = {
-        nome: 'ZEBRA',
-        categoria: 'ANIMAIS'
-    },
-    palavra013 = {
-        nome: 'TATU',
-        categoria: 'ANIMAIS'
-    },
-    palavra014 = {
-        nome: 'TAMANDOÁ',
-        categoria: 'ANIMAIS'
-    },
-    palavra015 = {
-        nome: 'GATO',
-        categoria: 'ANIMAIS'
-    },
-    palavra016 = {
-        nome: 'SAPO',
-        categoria: 'ANIMAIS'
-    },
-    palavra017 = {
-        nome: 'TIGRE',
-        categoria: 'ANIMAIS'
-    },
-    palavra018 = {
-        nome: 'ONÇA',
-        categoria: 'ANIMAIS'
-    },
-    palavra019 = {
-        nome: 'LEÃO',
-        categoria: 'ANIMAIS'
-    },
-    palavra020 = {
-        nome: 'CAMALEÃO',
-        categoria: 'ANIMAIS'
-    },
-]
-
-criarPalavraSecreta();
-function criarPalavraSecreta () {
-    const indexPalavra = parseInt(Math.random() * palavras.length);
-    palavraSecretaSorteada = palavras[indexPalavra].nome;
-    palavraSecretaCategoria = palavras[indexPalavra].categoria;
+pegaJson();
+function pegaJson() {
+    return fetch('http://localhost/projetos/jogoDaForca/conexao.php')
+      .then((response) => response.json())
+      .then(criarPalavraSecreta);
 }
-montarPalavraNaTela();
+
+function criarPalavraSecreta(data) {
+    const indexPalavra = parseInt(Math.random() * data.length);
+    palavraSecretaSorteada = data[indexPalavra].palavras;
+    palavraSecretaCategoria = data[indexPalavra].categorias;
+    console.log(palavraSecretaSorteada);
+    montarPalavraNaTela();
+}
+
 function montarPalavraNaTela() {
     const categoria = document.getElementById('categoria');
     categoria.innerHTML = palavraSecretaCategoria;
