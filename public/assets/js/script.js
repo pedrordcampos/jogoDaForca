@@ -174,12 +174,10 @@ btnReiniciar.addEventListener("click", function() {
 function listaAutomatica () {
     if (jogoAutomatico == true) {
         document.getElementById('jogarAutomatico').innerHTML = '<i class="bx bx-play-circle"></i>'
-        document.getElementById('status').innerHTML = "Modo manual";
         document.getElementById('abreModalAddPalavra').style.display = 'block';
         jogoAutomatico = false;
     } else {
         document.getElementById('jogarAutomatico').innerHTML = '<i class="bx bx-pause-circle"></i>'
-        document.getElementById('status').innerHTML = "Modo automático";
         document.getElementById('abreModalAddPalavra').style.display = 'none';
         jogoAutomatico = true;
     }
@@ -204,5 +202,34 @@ window.onclick = (event) => {
       modal.style.display = 'none';
     }
   };
+
+  function adicionarPalavra() {
+    let addPalavra = document.getElementById('addPalavra').value;
+    let addCategoria = document.getElementById('addCategoria').value;
+    [addPalavra, addCategoria] = tratarPalavras(addPalavra, addCategoria);
+
+    // Criar uma solicitação HTTP POST
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        // A resposta foi recebida com sucesso
+        console.log(this.responseText);
+    }
+    };
+    xhttp.open("POST", "public/assets/insert.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    // Enviar a solicitação com as variáveis
+    xhttp.send("addPalavra=" + addPalavra + "&addCategoria=" + addCategoria);
+
+    document.getElementById('addPalavra').value = '';
+    document.getElementById('addCategoria').value = '';
+  }
+  
+  function tratarPalavras(addPalavra, addCategoria) {
+    addPalavra = addPalavra.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase();
+    addCategoria = addCategoria.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase();
+    return [addPalavra, addCategoria]; 
+  }
   
 
