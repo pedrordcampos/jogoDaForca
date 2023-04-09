@@ -115,11 +115,7 @@ function comparaListas(letra){
 async function botaoReiniciar() {
 
     while (jogarNovamente == true) {
-        document.getElementById('btn-reiniciar').style.backgroundColor = '#8b008b';
-        document.getElementById('btn-reiniciar').style.scale = 1.1;
-        await atraso(500);
-        document.getElementById('btn-reiniciar').style.backgroundColor = '#ffffff';
-        document.getElementById('btn-reiniciar').style.scale = 1.0;
+        document.getElementById('jogarNovamente').style.display = 'block';
         await atraso(500);
     }
 }
@@ -201,20 +197,25 @@ window.onclick = (event) => {
     if (event.target == modal) {
       modal.style.display = 'none';
     }
-  };
+};
 
   function adicionarPalavra() {
     let addPalavra = document.getElementById('addPalavra').value;
     let addCategoria = document.getElementById('addCategoria').value;
+
+    if (isNullOrWhiteSpace(addPalavra) || isNullOrWhiteSpace(addCategoria)) {
+        abreModal('Atenção!', 'Você precisa adicionar uma palavra ou categoria válidos!');
+        return;
+    }
+
     [addPalavra, addCategoria] = tratarPalavras(addPalavra, addCategoria);
 
     // Criar uma solicitação HTTP POST
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-        // A resposta foi recebida com sucesso
-        console.log(this.responseText);
-    }
+        if (this.readyState == 4 && this.status == 200) {
+        
+        }
     };
     xhttp.open("POST", "public/assets/insert.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -224,6 +225,19 @@ window.onclick = (event) => {
 
     document.getElementById('addPalavra').value = '';
     document.getElementById('addCategoria').value = '';
+    document.getElementById('msg-modal').style.display = 'block';
+
+    
+    document.getElementById('addPalavra').addEventListener('click', function() {
+        let msgModal = document.getElementById('msg-modal');
+        msgModal.style.display = 'none';
+    });
+
+    document.getElementById('addCategoria').addEventListener('click', function() {
+        let msgModal = document.getElementById('msg-modal');
+        msgModal.style.display = 'none';
+    });
+
   }
   
   function tratarPalavras(addPalavra, addCategoria) {
@@ -231,5 +245,15 @@ window.onclick = (event) => {
     addCategoria = addCategoria.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase();
     return [addPalavra, addCategoria]; 
   }
+
+  function isNullOrWhiteSpace(input) {
+    return !input || !input.trim();
+  }
+
+  const btnInfo = document.getElementById('btn-info');
+  btnInfo.addEventListener("click", function() {
+    abreModal('Informações: ', 'Desenvolvido por: <strong><em>Agnaldo Guimarães</em></strong>. <br> <a href="https://www.youtube.com/AgnaldoGuimaraes">https://www.youtube.com/AgnaldoGuimaraes</a> <br> Adaptado por <strong><em>Pedro Ricardo de Campos</em></strong>');
+
+  })
   
 

@@ -175,6 +175,12 @@ body {
     animation-duration: 0.4s;
 }
 
+#msg-modal {
+    display: none;
+    color: #8b008b;
+    font-style: italic;
+}
+
 .modal-header-add-palavra {
     padding: 2px 16px;
     background-color: goldenrod;
