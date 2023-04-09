@@ -3,6 +3,7 @@ let tentativas = 6;
 let listaDinamica = [];
 let palavraSecretaCategoria;
 let palavraSecretaSorteada;
+let jogoAutomatico = true;
 
 pegaJson();
 function pegaJson() {
@@ -164,8 +165,44 @@ function abreModal(titulo, mensagem){
     });  
 }   
 
-let btnReiniciar = document.querySelector('#btn-reiniciar');
+let btnReiniciar = document.querySelector('#recarregar');
 btnReiniciar.addEventListener("click", function() {
     jogarNovamente = false;
     location.reload();
 });
+
+function listaAutomatica () {
+    if (jogoAutomatico == true) {
+        document.getElementById('jogarAutomatico').innerHTML = '<i class="bx bx-play-circle"></i>'
+        document.getElementById('status').innerHTML = "Modo manual";
+        document.getElementById('abreModalAddPalavra').style.display = 'block';
+        jogoAutomatico = false;
+    } else {
+        document.getElementById('jogarAutomatico').innerHTML = '<i class="bx bx-pause-circle"></i>'
+        document.getElementById('status').innerHTML = "Modo automático";
+        document.getElementById('abreModalAddPalavra').style.display = 'none';
+        jogoAutomatico = true;
+    }
+}
+
+
+const modal = document.getElementById('modal-alerta');
+const btnAbreModal = document.getElementById('abreModalAddPalavra');
+btnAbreModal.onclick = () => {
+    modal.style.display = 'block';
+}
+
+const btnFechaModal = document.getElementById('fechaModal');
+btnFechaModal.onclick = () => {
+    modal.style.display = 'none';
+    document.getElementById('addPalavra').value = '';
+    document.getElementById('addCategoria').value = '';
+}
+
+window.onclick = (event) => {
+    if (event.target == modal) {
+      modal.style.display = 'none';
+    }
+  };
+  
+
