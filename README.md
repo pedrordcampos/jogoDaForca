@@ -60,12 +60,12 @@ INSERT INTO projetosDB.jogoDaForca (palavras,categorias) VALUES
 ```
 
 ## ✒️ Autores:
+**Agnaldo Guimarães** 
+https://www.youtube.com/@AgnaldoGuimaraes
 
 **Pedro Ricardo de Campos** [pedrordcampos]
 (https://github.com/pedrordcampos)
 
-**Agnaldo Guimarães** 
-https://www.youtube.com/@AgnaldoGuimaraes
 
 
 
